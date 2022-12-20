@@ -11,3 +11,12 @@ export async function fetchMovies() {
   });
   return response.data.results;
 }
+
+export async function fetchMovieFullInfo(id) {
+  const response = await axios(`/movie/${id}`, {
+    params: {
+      api_key: API_KEY,
+    },
+  });
+  return response.data;
+}
