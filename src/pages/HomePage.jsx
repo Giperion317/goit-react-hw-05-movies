@@ -1,15 +1,10 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect} from "react"
 import { fetchMovies } from "components/services/moviesApi"
 import { Movies } from "components/Movies/Movies";
 
 export const HomePage = () => {
     const [movies, setMovies] = useState([]);
-    const isFirstRender = useRef(true);
     useEffect(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-            return;
-        }
         fetchMovies().then(setMovies)
     },[])
     return (
