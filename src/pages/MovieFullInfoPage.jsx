@@ -1,7 +1,9 @@
 import { Link, Outlet } from "react-router-dom";
 import { useFetchMovie } from "hooks/useFetchMovie"
+import { fetchMovieFullInfo } from 'services/moviesApi';
+
 export const MovieFullInfoPage = () => {
-    const movie = useFetchMovie()
+    const movie = useFetchMovie(fetchMovieFullInfo)
       return (
           movie && <>
               <img src={'https://image.tmdb.org/t/p/original' + movie.poster_path} alt={movie.original_title} width='300'/>
