@@ -7,25 +7,27 @@ import { Movies } from 'components/Movies/Movies';
 export const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get('moviename');
+  const query = searchParams.get('query');
 
   useEffect(() => {
-    fetchMoviesSearch(query).then(setMovies);
+    if (!query) return;
+    fetchMoviesSearch(query).then((data) => {
+      if (!data.length) {
+          alert('Something went wrong, try again!');
+        }
+      setMovies(data)
+    }).catch(error => {
+        console.log(error.message);
+      })
   }, [query]);
 
   const serchQuery = serchQuery => {
-    // if (serchQuery !== query) {
-    //   setQuery(serchQuery);
-    //   setPage(1);
-    //   setImages([]);
-    // }
-    setSearchParams({ moviename: serchQuery });
+    setSearchParams({ query: serchQuery });
   };
   return (
     <section>
-      <h1>Movies</h1>
       <SearchForm onSubmit={serchQuery} />
-      <Movies movies={movies} />
+      {movies && <Movies movies={movies} />}
     </section>
   );
 };

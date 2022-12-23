@@ -5,7 +5,11 @@ export const useFetchMovie = fetchFunction => {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
   useEffect(() => {
-    fetchFunction(movieId).then(setMovie);
+    fetchFunction(movieId)
+      .then(setMovie)
+      .catch(error => {
+        console.log(error.message);
+      });
   }, [movieId, fetchFunction]);
   return movie;
 };
