@@ -1,15 +1,39 @@
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { useFetchMovie } from 'hooks/useFetchMovie';
 import { fetchMovieFullInfo } from 'services/moviesApi';
 
 export const MovieFullInfoPage = () => {
-    const movie = useFetchMovie(fetchMovieFullInfo);
-    const navigate = useNavigate()
-    const location = useLocation()
+  const [movie, setMovie] = useState(null);
+  const { movieId } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  useEffect(() => {
+    fetchMovieFullInfo(movieId)
+      .then(setMovie)
+      .catch(error => {
+        console.log(error.message);
+      });
+  }, [movieId]);
+
+  const getVideo = () => {
+    const videosArr = movie.videos.results;
+    return videosArr.find(video => video.type === 'Trailer')
+      ? videosArr.find(video => video.type === 'Trailer').key
+      : videosArr[0].key;
+  };
+  console.log(movie)
   return (
     movie && (
       <>
-        <button type="button" onClick={()=>{navigate(location?.state?.from ?? '/')}}>Go back</button>
+        <button
+          type="button"
+          onClick={() => {
+            navigate(location?.state?.from ?? '/');
+          }}
+        >
+          Go back
+        </button>
         <img
           src={'https://image.tmdb.org/t/p/original' + movie.poster_path}
           alt={movie.original_title}
@@ -21,9 +45,16 @@ export const MovieFullInfoPage = () => {
         <p>{movie.overview}</p>
         <h3>Genres</h3>
         <p>{movie.genres.map(genre => genre.name).join(' ')}</p>
+        <iframe src={`https://www.youtube.com/embed/${getVideo()}`}
+                frameBorder="0"
+                allowFullScreen></iframe>
         <hr />
-        <Link to={`cast`} state={location.state}>Cast</Link>
-        <Link to={`reviews`} state={location.state}>Revievs</Link>
+        <Link to={`cast`} state={location.state}>
+          Cast
+        </Link>
+        <Link to={`reviews`} state={location.state}>
+          Revievs
+        </Link>
         <hr />
         <Outlet />
       </>

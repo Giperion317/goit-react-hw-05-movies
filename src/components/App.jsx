@@ -1,6 +1,6 @@
 import { GlobalStyle } from "utils/GlobalStyles";
 import { Routes, Route } from "react-router-dom";
-import { Layout } from "./Layout";
+import { Layout } from "./Layout/Layout";
 import { HomePage } from "pages/HomePage";
 import { MoviesPage } from "pages/MoviesPage";
 import { MovieFullInfoPage } from "pages/MovieFullInfoPage";

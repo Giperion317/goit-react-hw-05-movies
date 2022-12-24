@@ -5,11 +5,13 @@ import { Movies } from 'components/Movies/Movies';
 export const HomePage = () => {
   const [movies, setMovies] = useState([]);
   useEffect(() => {
-    fetchMovies().then(setMovies).catch(error => {
+    fetchMovies()
+      .then(setMovies)
+      .catch(error => {
         console.log(error.message);
       });
   }, []);
-  return (
+   return (
     <section>
       <h1>Trending today</h1>
       {movies && <Movies movies={movies} />}

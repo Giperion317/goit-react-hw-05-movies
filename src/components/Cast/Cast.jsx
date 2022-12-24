@@ -1,12 +1,26 @@
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { fetchMovieCast } from "services/moviesApi"
-import { useFetchMovie } from "hooks/useFetchMovie"
 
 export const Cast = () => {
-    const credits = useFetchMovie(fetchMovieCast);
-            return (
-        <ul>
-      {credits &&
-        credits.cast.map(({character, name, profile_path, id}) => (
+      const [cast, setCast] = useState(null);
+  const { movieId } = useParams();
+  useEffect(() => {
+    fetchMovieCast(movieId)
+      .then(({ cast }) => {
+        if (!cast.length) return;
+        setCast(cast);
+      })
+      // .then(setCredits)
+      .catch(error => {
+        console.log(error.message);
+      });
+  }, [movieId]);
+  return (
+               <>
+      {cast ? (
+         <ul>
+      {cast.map(({character, name, profile_path, id}) => (
             <li key={id}>
                 <img src={'https://image.tmdb.org/t/p/original' + profile_path} alt={name} width='60' />
                 <b>{name}</b>
@@ -14,5 +28,10 @@ export const Cast = () => {
             </li>
         ))}
     </ul>
+      ) : (
+        <p>We don't have cast for this movie.</p>
+      )}
+    </>
+       
     )
 }

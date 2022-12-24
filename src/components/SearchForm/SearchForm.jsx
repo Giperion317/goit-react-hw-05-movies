@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 export const SearchForm = ({ onSubmit }) => {
   const [serchQuery, setSerchQuery] = useState('');
@@ -34,4 +35,8 @@ export const SearchForm = ({ onSubmit }) => {
       />
     </form>
   );
+};
+
+SearchForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };

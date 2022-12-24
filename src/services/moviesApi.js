@@ -16,6 +16,7 @@ export async function fetchMovieFullInfo(id) {
   const response = await axios(`/movie/${id}`, {
     params: {
       api_key: API_KEY,
+      append_to_response: 'videos',
     },
   });
   return response.data;
