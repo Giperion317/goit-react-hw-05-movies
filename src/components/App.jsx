@@ -6,7 +6,6 @@ import { MoviesPage } from "pages/MoviesPage";
 import { MovieFullInfoPage } from "pages/MovieFullInfoPage";
 import { Cast } from "./Cast/Cast";
 import { Reviews } from "./Reviews/Reviews";
-import { NotFoundPage } from "pages/NotFoundPage";
 
 export const App = () => {
   return (
@@ -19,9 +18,9 @@ export const App = () => {
             <Route path='cast' element={<Cast/>} />
             <Route path='reviews' element={<Reviews/>} />
           </Route>
-          
+           <Route path="*" element={<HomePage/>} />
         </Route>
-        <Route path="*" element={<NotFoundPage/>} />
+       
     </Routes>
       <GlobalStyle />
       </>
