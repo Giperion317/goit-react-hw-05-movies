@@ -46,6 +46,7 @@ export const MovieFullInfoPage = () => {
         <h3>Genres</h3>
         <p>{movie.genres.map(genre => genre.name).join(' ')}</p>
         <iframe src={`https://www.youtube.com/embed/${getVideo()}`}
+          title={movie.original_title}
                 frameBorder="0"
                 allowFullScreen></iframe>
         <hr />
