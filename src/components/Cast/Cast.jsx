@@ -11,7 +11,6 @@ export const Cast = () => {
         if (!cast.length) return;
         setCast(cast);
       })
-      // .then(setCredits)
       .catch(error => {
         console.log(error.message);
       });
