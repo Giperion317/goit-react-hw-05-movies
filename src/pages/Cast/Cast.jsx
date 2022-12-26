@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchMovieCast } from "services/moviesApi"
+import { fetchMovieCast } from "services/moviesApi";
+import { Loader } from 'components/Loader/Loader';
 
-export const Cast = () => {
-      const [cast, setCast] = useState(null);
+const Cast = () => {
+  const [cast, setCast] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { movieId } = useParams();
+
   useEffect(() => {
+    setIsLoading(true);
     fetchMovieCast(movieId)
       .then(({ cast }) => {
         if (!cast.length) return;
@@ -13,11 +17,16 @@ export const Cast = () => {
       })
       .catch(error => {
         console.log(error.message);
+      }).finally(() => {
+        setIsLoading(false);
       });
   }, [movieId]);
   return (
-               <>
-      {cast ? (
+    <>
+      {isLoading && <Loader />}
+      {!isLoading && cast.length === 0 ? (
+        <p>We don't have cast for this movie.</p>
+      ) : (
          <ul>
       {cast.map(({character, name, profile_path, id}) => (
             <li key={id}>
@@ -27,10 +36,10 @@ export const Cast = () => {
             </li>
         ))}
     </ul>
-      ) : (
-        <p>We don't have cast for this movie.</p>
       )}
     </>
        
     )
 }
+
+export default Cast;
