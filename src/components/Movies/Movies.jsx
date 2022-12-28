@@ -1,15 +1,19 @@
 import { useLocation } from 'react-router-dom';
-import { MoviesItem, MoviesList, MoviesLink, Wrapper, MoviesTitle} from './Modies.styled';
+import {
+  MoviesItem,
+  MoviesList,
+  MoviesLink,
+  Wrapper,
+  MoviesTitle,
+} from './Modies.styled';
 import PropTypes from 'prop-types';
-
 
 export const Movies = ({ movies }) => {
   const location = useLocation();
-  console.log(movies);
   return (
     <MoviesList>
       {movies &&
-        movies.map(({ original_title, id, poster_path}) => (
+        movies.map(({ original_title, id, poster_path }) => (
           <MoviesItem key={id}>
             <MoviesLink to={`/movies/${id}`} state={{ from: location }}>
               <img
@@ -18,8 +22,8 @@ export const Movies = ({ movies }) => {
                 width="270"
               />
               <Wrapper>
-              <MoviesTitle>{original_title}</MoviesTitle>
-                </Wrapper>
+                <MoviesTitle>{original_title}</MoviesTitle>
+              </Wrapper>
             </MoviesLink>
           </MoviesItem>
         ))}

@@ -1,9 +1,22 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useParams } from 'react-router-dom';
-import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation} from 'react-router-dom';
 import { fetchMovieFullInfo } from 'services/moviesApi';
 import { Loader } from 'components/Loader/Loader';
-import { Wrapper } from './MovieFullInfoPage.styled';
+import {
+  Wrapper,
+  WrapperInfo,
+  BackButton,
+  MoviesTitle,
+  InfoTitle,
+  InfoText,
+  InfoVideo,
+  InfoImg,
+  InfoLink,
+  InfoLine,
+} from './MovieFullInfoPage.styled';
+import { IconContext } from 'react-icons';
+import { BiChevronsLeft } from 'react-icons/bi';
 
 const MovieFullInfoPage = () => {
   const [movie, setMovie] = useState(null);
@@ -35,46 +48,49 @@ const MovieFullInfoPage = () => {
       {isLoading && <Loader />}
       {!isLoading && movie && (
         <>
-          
-            <button
-              type="button"
-              onClick={() => {
-                navigate(location?.state?.from ?? '/');
-              }}
-            >
-              Go back
-            </button>
-            
+          <BackButton
+            type="button"
+            onClick={() => {
+              navigate(location?.state?.from ?? '/');
+            }}
+          >
+            <IconContext.Provider value={{ size: 30, color: '#e31e28' }}>
+              <BiChevronsLeft />
+            </IconContext.Provider>
+            Go back
+          </BackButton>
+          <MoviesTitle>{movie.original_title}</MoviesTitle>
           <Wrapper>
-            <img
+            <InfoImg
               src={'https://image.tmdb.org/t/p/original' + movie.poster_path}
               alt={movie.original_title}
-              width="400"
+              
             />
-             <h1>{movie.original_title}</h1>
-            <p>User Score: {movie.vote_average}</p>
-            <hr />
-            <h2>Overview</h2>
-            <p>{movie.overview}</p>
-            <hr />
-            <h3>Genres</h3>
-            <p>{movie.genres.map(genre => genre.name).join(' ')}</p>
-            <hr />
-            <iframe
-              src={`https://www.youtube.com/embed/${getVideo()}`}
-              title={movie.original_title}
-              frameBorder="0"
-              allowFullScreen
-            ></iframe>
+            <WrapperInfo>
+              <InfoText>User Score: {movie.vote_average * 10}%</InfoText>
+              <hr />
+              <InfoTitle>Overview</InfoTitle>
+              <InfoText>{movie.overview}</InfoText>
+              <hr />
+              <InfoTitle>Genres</InfoTitle>
+              <InfoText>{movie.genres.map(genre => genre.name).join(' ')}</InfoText>
+              <hr />
+              <InfoTitle>Trailer</InfoTitle>
+              <InfoVideo
+                src={`https://www.youtube.com/embed/${getVideo()}`}
+                title={movie.original_title}
+                allowFullScreen
+              ></InfoVideo>
+            </WrapperInfo>
           </Wrapper>
-          <hr />
-          <Link to={`cast`} state={location.state}>
+          <InfoLine />
+          <InfoLink to={`cast`} state={location.state}>
             Cast
-          </Link>
-          <Link to={`reviews`} state={location.state}>
+          </InfoLink>
+          <InfoLink to={`reviews`} state={location.state}>
             Revievs
-          </Link>
-          <hr />
+          </InfoLink>
+          <InfoLine/>
           <Suspense fallback={<Loader />}>
             <Outlet />
           </Suspense>

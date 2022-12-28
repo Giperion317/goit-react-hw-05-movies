@@ -39,7 +39,5 @@ export const Wrapper = styled.div`
 `;
 
 export const MoviesTitle = styled.h2`
-  font-size: 24px;
-  font-weight: 500;
   color: ${props => props.theme.colors.primory};
 `;

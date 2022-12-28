@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieReviews } from 'services/moviesApi';
 import { Loader } from 'components/Loader/Loader';
+import { NoneText, AutorName, ReviewsText } from './Reviews.styled';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -26,13 +27,13 @@ const Reviews = () => {
     <>
       {isLoading && <Loader />}
       {!isLoading && reviews.length === 0 ? (
-        <p>We don't have any reviews for this movie.</p>
+        <NoneText>We don't have any reviews for this movie!</NoneText>
       ) : (
         <ul>
           {reviews.map(({ author, content, id }) => (
             <li key={id}>
-              <b>Autor: {author}</b>
-              <p>{content}</p>
+              <AutorName>Autor: {author}</AutorName>
+              <ReviewsText>{content}</ReviewsText>
             </li>
           ))}
         </ul>

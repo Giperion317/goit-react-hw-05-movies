@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Searchform, SearchBtn, SearchInput } from './SearchForm.styled';
 import PropTypes from 'prop-types';
 
 export const SearchForm = ({ onSubmit }) => {
@@ -22,9 +23,9 @@ export const SearchForm = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <button type="submit">Search</button>
-      <input
+    <Searchform onSubmit={handleSubmit}>
+      <SearchBtn type="submit"></SearchBtn>
+      <SearchInput
         type="text"
         autoComplete="off"
         autoFocus
@@ -33,7 +34,7 @@ export const SearchForm = ({ onSubmit }) => {
         name="serchQuery"
         value={serchQuery}
       />
-    </form>
+    </Searchform>
   );
 };
 
