@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { fetchMovies } from 'services/moviesApi';
 import { Movies } from 'components/Movies/Movies';
 import { Loader } from 'components/Loader/Loader';
+import { HomeTitle } from './HomePage.styled';
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -19,11 +20,11 @@ const HomePage = () => {
       });
   }, []);
   return (
-    <section>
-      <h1>Trending today</h1>
+    <>
+      <HomeTitle>Trending today</HomeTitle>
       {isLoading && <Loader />}
       {!isLoading && movies.length && <Movies movies={movies} />}
-    </section>
+    </>
   );
 };
 

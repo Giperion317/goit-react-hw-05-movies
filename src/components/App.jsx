@@ -4,14 +4,14 @@ import { GlobalStyle } from 'utils/GlobalStyles';
 import { Layout } from './Layout/Layout';
 
 const HomePage = lazy(() =>
-  import('pages/HomePage' /* webpackChunkName: "home-page" */)
+  import('pages/HomePage/HomePage' /* webpackChunkName: "home-page" */)
 );
 const MoviesPage = lazy(() =>
-  import('pages/MoviesPage' /* webpackChunkName: "movies-page" */)
+  import('pages/MoviesPage/MoviesPage' /* webpackChunkName: "movies-page" */)
 );
 const MovieFullInfoPage = lazy(() =>
   import(
-    'pages/MovieFullInfoPage' /* webpackChunkName: "movie-full-info-page" */
+    'pages/MovieFullInfoPage/MovieFullInfoPage' /* webpackChunkName: "movie-full-info-page" */
   )
 );
 const Cast = lazy(() =>

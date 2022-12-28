@@ -8,6 +8,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color:rgba(215, 212, 212, 0.16);
 }
 
 code {
@@ -33,5 +34,11 @@ ol {
 }
 a{
   text-decoration:none;
+}
+
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 `;

@@ -31,11 +31,11 @@ const MoviesPage = () => {
     setSearchParams({ query: serchQuery });
   };
   return (
-    <section>
+    <>
       <SearchForm onSubmit={serchQuery} />
       {isLoading && <Loader />}
       {!isLoading && movies && <Movies movies={movies} />}
-    </section>
+    </>
   );
 };
 

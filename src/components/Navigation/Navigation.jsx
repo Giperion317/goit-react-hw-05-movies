@@ -1,15 +1,16 @@
-import { NavigationLink } from "./Navigation.styled";
+import { NavList, NavItem, NavigationLink } from "./Navigation.styled";
+
 export const Navigation = () => {
   return (
     <nav>
-      <ul>
-        <li>
+      <NavList >
+        <NavItem>
           <NavigationLink to={'/'} end>Home</NavigationLink>
-        </li>
-        <li>
+        </NavItem>
+        <NavItem>
           <NavigationLink to={'/movies'}>Movies</NavigationLink>
-        </li>
-      </ul>
+        </NavItem>
+      </NavList>
     </nav>
   );
 };
