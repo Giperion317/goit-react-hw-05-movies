@@ -25,7 +25,7 @@ const MoviesPage = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [query]);
+  }, [searchParams, query]);
 
   const serchQuery = serchQuery => {
     setSearchParams({ query: serchQuery });

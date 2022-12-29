@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Avatar from 'react-avatar';
 import { fetchMovieCast } from "services/moviesApi";
 import { Loader } from 'components/Loader/Loader';
 import { NoneText, CastList, CastItem, CastName, CharterName } from './Cast.styled';
@@ -30,8 +31,9 @@ const Cast = () => {
       ) : (
          <CastList>
       {cast.map(({character, name, profile_path, id}) => (
-            <CastItem key={id}>
-                <img src={'https://image.tmdb.org/t/p/original' + profile_path} alt={name} width='100' />
+        <CastItem key={id}>
+          {!profile_path ? <Avatar name={name} round={true} style={{marginTop: 25, marginBottom: 25}} /> :<img src={'https://image.tmdb.org/t/p/original' + profile_path} alt={name} width='100' />}
+                
                 <CastName>{name}</CastName>
                 <p>Character: <CharterName>{character}</CharterName></p>
             </CastItem>

@@ -49,3 +49,12 @@ export async function fetchMoviesSearch(query) {
   });
   return response.data.results;
 }
+
+export async function fetchVideo(id) {
+  const response = await axios(`/movie/${id}/videos`, {
+    params: {
+      api_key: API_KEY,
+    },
+  });
+  return response.data.results;
+}

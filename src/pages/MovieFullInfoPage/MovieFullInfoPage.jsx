@@ -1,7 +1,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useParams } from 'react-router-dom';
 import { Outlet, useNavigate, useLocation} from 'react-router-dom';
-import { fetchMovieFullInfo } from 'services/moviesApi';
+import { fetchMovieFullInfo, fetchVideo } from 'services/moviesApi';
 import { Loader } from 'components/Loader/Loader';
 import {
   Wrapper,
@@ -20,6 +20,7 @@ import { BiChevronsLeft } from 'react-icons/bi';
 
 const MovieFullInfoPage = () => {
   const [movie, setMovie] = useState(null);
+  const [video, setVideo] = useState(null)
   const [isLoading, setIsLoading] = useState(false);
   const { movieId } = useParams();
   const navigate = useNavigate();
@@ -35,14 +36,13 @@ const MovieFullInfoPage = () => {
       .finally(() => {
         setIsLoading(false);
       });
+    fetchVideo(movieId)
+      .then(setVideo)
+      .catch(error => {
+        console.log(error.message);
+      })
   }, [movieId]);
 
-  const getVideo = () => {
-    const videos = movie.videos.results;
-    return videos.find(video => video.type === 'Trailer')
-      ? videos.find(video => video.type === 'Trailer').key
-      : videos[0].key;
-  };
   return (
     <>
       {isLoading && <Loader />}
@@ -76,11 +76,11 @@ const MovieFullInfoPage = () => {
               <InfoText>{movie.genres.map(genre => genre.name).join(' ')}</InfoText>
               <hr />
               <InfoTitle>Trailer</InfoTitle>
-              <InfoVideo
-                src={`https://www.youtube.com/embed/${getVideo()}`}
+              {video && <InfoVideo
+                src={`https://www.youtube.com/embed/${video[0].key}`}
                 title={movie.original_title}
                 allowFullScreen
-              ></InfoVideo>
+              ></InfoVideo>}
             </WrapperInfo>
           </Wrapper>
           <InfoLine />
